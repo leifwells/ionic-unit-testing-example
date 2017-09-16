@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { Page3Item } from './../../providers/page3/page3-item';
+import { Page3Provider } from '../../providers/page3/page3-provider';
 
 @Component({
   selector: 'page-page3',
@@ -7,23 +9,25 @@ import { NavController } from 'ionic-angular';
 })
 export class Page3 {
   icons: string[];
-  items: Array<{ title: string, note: string, icon: string }>;
+  items: Page3Item[];
+  infiniteScrollEnabled: true;
 
   constructor(
-    public navCtrl: NavController
-  ) {
-    // Let's populate this page with some filler content for funzies
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-      'american-football', 'boat', 'bluetooth', 'build'];
+    public navCtrl: NavController,
+    public page3provider: Page3Provider
+  ) {}
 
-    this.items = [];
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+  ngOnInit() {
+    this.page3provider.getItems().subscribe((items) => {
+      this.items = items;
+    });
+  }
+
+  doInfinite(infiniteScroll) {
+    this.page3provider.getMoreItems().subscribe((items) => {
+      this.items = this.items.concat(items);
+      infiniteScroll.complete();
+    });
   }
 
   itemTapped(event, item) {
