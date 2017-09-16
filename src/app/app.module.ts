@@ -10,6 +10,9 @@ import { Page3 } from '../pages/page3/page3';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { HttpModule } from '@angular/http';
+import { Page3Provider } from '../providers/page3/page3-provider';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -19,6 +22,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp, {}, { links: [] })
   ],
   bootstrap: [IonicApp],
@@ -31,7 +35,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    Page3Provider
   ]
 })
 export class AppModule { }
