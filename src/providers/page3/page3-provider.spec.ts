@@ -7,7 +7,7 @@ import { HttpModule } from '@angular/http';
 // PROVIDER BEING TESTED
 import { Page3Provider } from './page3-provider';
 
-describe('Page3', () => {
+describe('Page3 Provider', () => {
   let provider: Page3Provider;
 
   beforeEach(async(() => {
@@ -27,7 +27,7 @@ describe('Page3', () => {
     provider = prov;
   }));
 
-  it('should create component', () => {
+  it('should create provider', () => {
     expect(provider).toBeDefined()
     expect(provider instanceof Page3Provider).toBeTruthy();
   });
@@ -49,9 +49,9 @@ describe('Page3', () => {
 
       provider.getMoreItems().subscribe((items) => {
         let len1 = items.length;
-        expect(items.length).toEqual(25);
-        expect(items[0].title).toEqual('Item ' + (len0 + 1));
-        expect(items[len1 - 1].title).toEqual('Item ' + (len0 + len1));
+        expect(items.length).toEqual(50);
+        expect(items[len0].title).toEqual('Item ' + (len0 + 1));
+        expect(items[len1 - 1].title).toEqual('Item ' + len1);
         done();
       });
     });

@@ -25,7 +25,7 @@ export class Page3 {
 
   doInfinite(infiniteScroll) {
     this.page3provider.getMoreItems().subscribe((items) => {
-      this.items = this.items.concat(items);
+      this.items = items;
       infiniteScroll.complete();
     });
   }

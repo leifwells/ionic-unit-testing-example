@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class Page3Provider implements Page3ProviderInterface {
 
+  items: Page3Item[] = new Array();
   limit: number = 25;
   page: number = 0;
 
@@ -18,13 +19,19 @@ export class Page3Provider implements Page3ProviderInterface {
   getItems(): Observable<Page3Item[]> {
     this.page++;
     return this.http.get('http://localhost:3004/items?_page=' + this.page + '&_limit=' + this.limit)
-                    .map((resp) => resp = resp.json());
+                    .map((resp) => resp = resp.json())
+                    .map((resp) => {
+                      return this.items = this.items.concat(resp);
+                    });
   }
 
   getMoreItems(): Observable<Page3Item[]> {
     this.page++;
     return this.http.get('http://localhost:3004/items?_page=' + this.page + '&_limit=' + this.limit)
-                    .map((resp) => resp = resp.json());
+                    .map((resp) => resp = resp.json())
+                    .map((resp) => {
+                      return this.items = this.items.concat(resp);
+                    });
   }
 
 }
