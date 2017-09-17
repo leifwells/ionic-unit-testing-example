@@ -17,7 +17,7 @@ export class Page3 {
     public page3provider: Page3Provider
   ) {}
 
-  ngOnInit() {
+  ionViewDidLoad() {
     this.page3provider.getItems().subscribe((items) => {
       this.items = items;
     });

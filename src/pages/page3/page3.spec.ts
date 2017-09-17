@@ -10,8 +10,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { PlatformMock, StatusBarMock, SplashScreenMock } from '../../../test-config/mocks-ionic';
 
 // PROVIDERS
+import { Page3HttpProvider } from '../../providers/page3/page3-http-provider';
+import { Page3HttpProviderMock } from '../../providers/page3/page3-http-provider-mock';
 import { Page3Provider } from '../../providers/page3/page3-provider';
-import { Page3ProviderMock } from '../../providers/page3/page3-provider-mock';
 
 // CLASS BEING TESTED
 import { Page3 } from './page3';
@@ -29,7 +30,8 @@ describe('Page3', () => {
       ],
       providers: [
         NavController,
-        { provide: Page3Provider, useClass: Page3ProviderMock },
+        { provide: 'Page3HttpProvider', useClass: Page3HttpProviderMock },
+        Page3Provider,
         { provide: Platform, useClass: PlatformMock},
         { provide: StatusBar, useClass: StatusBarMock },
         { provide: SplashScreen, useClass: SplashScreenMock },
@@ -41,6 +43,11 @@ describe('Page3', () => {
     fixture = TestBed.createComponent(Page3);
     comp = fixture.componentInstance;
     de = fixture.debugElement.query(By.css('.toolbar-title'));
+  });
+
+  afterEach(() => {
+    fixture.destroy();
+    comp = null;
   });
 
   it('should create component', () => expect(comp).toBeDefined());
@@ -68,9 +75,9 @@ describe('Page3', () => {
 
       comp.page3provider.getMoreItems().subscribe((items) => {
         let len1 = items.length;
-        expect(items.length).toEqual(25);
-        expect(items[0].title).toEqual('Item ' + (len0 + 1));
-        expect(items[len1 - 1].title).toEqual('Item ' + (len0 + len1));
+        expect(items.length).toEqual(50);
+        expect(items[len0].title).toEqual('Item ' + (len0 + 1));
+        expect(items[len1 - 1].title).toEqual('Item ' + len1);
         done();
       });
     });
