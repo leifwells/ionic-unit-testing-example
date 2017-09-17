@@ -10,8 +10,13 @@ import { Page3 } from '../pages/page3/page3';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HttpModule } from '@angular/http';
+import { Http, HttpModule } from '@angular/http';
+import { Page3HttpProvider } from '../providers/page3/page3-http-provider';
 import { Page3Provider } from '../providers/page3/page3-provider';
+
+export function getPage3HttpProvider(http) {
+  return new Page3HttpProvider(http);
+}
 
 @NgModule({
   declarations: [
@@ -36,6 +41,11 @@ import { Page3Provider } from '../providers/page3/page3-provider';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    {
+      provide: 'Page3HttpProvider',
+      useFactory: getPage3HttpProvider,
+      deps: [ Http ]
+    },
     Page3Provider
   ]
 })
