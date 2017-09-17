@@ -3,6 +3,8 @@ import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing'
 
 // PROVIDER CLASSES AND MOCKS
 import { HttpModule } from '@angular/http';
+import { Page3HttpProvider } from './page3-http-provider';
+import { Page3HttpProviderMock } from './page3-http-provider-mock';
 
 // PROVIDER BEING TESTED
 import { Page3Provider } from './page3-provider';
@@ -17,6 +19,7 @@ describe('Page3 Provider', () => {
         HttpModule
       ],
       providers: [
+        { provide: 'Page3HttpProvider', useClass: Page3HttpProviderMock },
         Page3Provider
       ]
     });
