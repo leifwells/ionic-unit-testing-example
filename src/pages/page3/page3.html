@@ -8,10 +8,13 @@
 </ion-header>
 
 <ion-content>
-    <div *ngIf="!items || !items.length" padding text-center>
-      <ion-spinner padding></ion-spinner>
+  <div *ngIf="showLoading" padding text-center>
+    <ion-spinner padding></ion-spinner>
     <div padding text-center>Loading...</div>
-    </div>
+  </div>
+  <div *ngIf="!showLoading && items?.length === 0" padding>
+    <p text-center>No data available.</p>
+  </div>
   <ion-list>
     <button ion-item
             *ngFor="let item of items"

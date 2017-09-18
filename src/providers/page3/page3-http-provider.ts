@@ -13,6 +13,6 @@ export class Page3HttpProvider {
     const urlStr: string = 'http://localhost:3004/items?_page=' + page + '&_limit=' + limit;
 
     return this.http.get(urlStr)
-                    .map((resp) => resp = resp.json())
+                    .map((resp) => resp = resp.json());
   }
 }
